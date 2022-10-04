@@ -12,22 +12,22 @@ export const useWeather = () => {
     getCurrentWeather();
   }, []);
 
-  const getCurrentWeather = async () => {
-    Geolocation.getCurrentPosition(location => {
-      return axios
-        .get(`${Constants.UrlWeather.baseUrl}&units=metric`, {
+  const getCurrentWeather = () => {
+    Geolocation.getCurrentPosition(async location => {
+      const weather = await axios.get(
+        `${Constants.UrlWeather.baseUrl}&units=metric`,
+        {
           params: {
             lat: location.coords.latitude,
             lon: location.coords.longitude,
             appid: Constants.ApiKey.api_key,
           },
-        })
-        .then(weather => {
-          if (weather.status !== 200) {
-            console.error('no se pudo obtener el estado del clima');
-          }
-          setCurrentWeather(weather.data);
-        });
+        },
+      );
+      if (weather.status !== 200) {
+        console.error('no se pudo obtener el estado del clima');
+      }
+      setCurrentWeather(weather.data);
     });
   };
 

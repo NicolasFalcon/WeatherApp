@@ -1,9 +1,9 @@
 export namespace Weather {
   export interface CurrentWeather {
     coord: Coord;
-    weather: Partial<Weather[]>;
+    weather: Weather[];
     base: string;
-    main: Partial<Main>;
+    main: Main;
     visibility: number;
     wind: Wind;
     clouds: Clouds;
